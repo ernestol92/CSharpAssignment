@@ -1,0 +1,4 @@
+﻿Håll din konsol specifika kod till Mainapp delen bara. All kod i ContactsDomain ska kunna användas med GUI.
+Försök hålla på srp för enklare testning.
+Interface testas ej eftersom det bara är ett kontrakt utan specifik logik i. klasserna som baseras på interface
+behöver dock testas.. DTO eller data containers, behöver inte heller testning den ska bara flytta info mellan metoder etc..
