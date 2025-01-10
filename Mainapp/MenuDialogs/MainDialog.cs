@@ -41,7 +41,7 @@ public class MainDialog
                 break;
 
             case "3":
-                
+                DeleteUser();
                 break;
 
             case "4":
@@ -98,6 +98,82 @@ public class MainDialog
         
         _contacts.AddUser(user);
     }
+
+    public void DeleteUser() 
+    {
+
+        if (_contacts.EditUserList().Count() == 0)
+        {
+            Console.Clear();
+            Console.WriteLine("There are no customers in customerlist");
+            Console.ReadKey();
+            return;
+        }
+
+        int SelectedIndex = 0;
+        List<ContactForm> users = _contacts.EditUserList();
+        ConsoleKeyInfo key;
+
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("Select the user you would like to delete");
+            Console.WriteLine("Press Escape to cancel");
+
+            for (int i = 0; i < users.Count; i++)
+            {
+                if (i == SelectedIndex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($">   {users[i].FirstName} {users[i].LastName}");
+                    Console.ResetColor();
+                }
+
+                else
+                {
+                    Console.WriteLine($"{users[i].FirstName} {users[i].LastName}");
+                }
+            }
+
+            key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.UpArrow && SelectedIndex > 0)
+            {
+                SelectedIndex--;
+            }
+            else if (key.Key == ConsoleKey.DownArrow && SelectedIndex < users.Count - 1)
+            {
+                SelectedIndex++;
+            }
+            else if (key.Key == ConsoleKey.Escape)
+            {
+                Console.Clear();
+                Console.WriteLine("Deletion cancelled.");
+                Console.ReadKey();
+                return;
+            }
+
+        }
+
+        while (key.Key != ConsoleKey.Enter);
+
+        Console.Clear();
+        Console.WriteLine($"Are you sure you want to delete {users[SelectedIndex].FirstName} {users[SelectedIndex].LastName}?");
+        string confirmation = Console.ReadLine()!;
+
+        if (confirmation.ToLower() == "yes")
+        {
+            _contacts.RemoveUser(SelectedIndex);
+            Console.WriteLine("User succesfully deleted");
+        }
+
+        else
+        {
+            Console.WriteLine("Deletion Cancelled");
+        }
+
+
+    }
+    
 
     public void ExitApp()
     {

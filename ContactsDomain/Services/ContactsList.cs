@@ -28,4 +28,13 @@ public class ContactsList : IContactsList
         return savedlist;
     }
 
+    public List<ContactForm> EditUserList()
+    {
+        return _contacts;
+    }
+
+    public void RemoveUser(int SelectedIndex)
+    {
+        _contacts.Remove(_contacts[SelectedIndex]);
+    }
 }
